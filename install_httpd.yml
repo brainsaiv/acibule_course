@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: true
+  tasks: 
+
+  - name: update repository index
+    ansible.builtin.dnf:
+      update_cache: yes
+
+  - name: install httpd package
+    ansible.builtin.dnf:
+      name: httpd
+
+  - name: install PHP-FPM for httpd
+    ansible.builtin.dnf:
+      name: 
+        - php
+        - php-fpm
+      state: present
