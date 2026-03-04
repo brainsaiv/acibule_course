@@ -1,0 +1,27 @@
+---
+
+- hosts: web_servers
+  become: true
+  tasks:
+
+  - name: install apache on Fedora web servers
+    ansible.builtin.dnf:
+      name:
+        - httpd
+        - php
+        - php-fpm
+      state: present
+    when: ansible_distribution == "Fedora"
+
+  - name: enable and start httpd
+    ansible.builtin.systemd:
+      name: httpd
+      state: started
+      enabled: true
+    when: ansible_distribution == "Fedora"
+
+  - name: create default index.html
+    ansible.builtin.copy:
+      dest: /var/www/html/index.html
+      content: "Hello from Fedora Apache Server!"
+    when: ansible_distribution == "Fedora"
