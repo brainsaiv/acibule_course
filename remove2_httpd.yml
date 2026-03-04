@@ -10,5 +10,10 @@
   - name: remove httpd package
     ansible.builtin.dnf:
       name: httpd
-      state: absent
 
+  - name: remove PHP-FPM for httpd
+    ansible.builtin.dnf:
+      name: 
+        - php
+        - php-fpm
+      state: absent
